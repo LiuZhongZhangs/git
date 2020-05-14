@@ -1,0 +1,21 @@
+#!/bin/bash/except -f
+set user [lindex $argv 0]
+set password [lindex $argv 1]
+set timeout 100
+spawn   adduser $user
+expect {
+   "*yes/no" { send "yes\r"; exp_continue }
+   "*password:" { send "$password\r" }
+}
+
+expect {
+  "*password:" { send "$password\r" }
+}
+
+send "\r"
+send "\r"
+send "\r"
+send "\r"
+send "\r"
+send "Y\r"
+expect eof
